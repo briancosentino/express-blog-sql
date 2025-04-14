@@ -34,6 +34,7 @@ In Update, controllare se il parametro si riferisce ad un post esistente, in cas
 const express = require('express')
 const app = express();
 const port = 3001
+const connection = require('./data/db')
 
 const postsRouter = require('./routers/postList')
 const logger = require('./middlewares/logger')
@@ -45,7 +46,7 @@ app.use(logger)
 app.use(serverError)
 app.use(notFound)
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
-    
+
 })
