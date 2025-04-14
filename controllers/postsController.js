@@ -57,12 +57,13 @@ function modify(req, res) {
     res.send('modify whole post' + req.params.id)
 }
 function destroy(req, res) {
-    const postIndex = posts.indexOf(posts.find(post => post.slug === req.params.id))
-    posts.splice(postIndex, 1)
+    const sql = 'DELETE FROM posts WHERE id = ?'
+    const { id } = req.params;
+    connection.query(sql, [id], (err) => {
+        if (err) return res.status(500).json({ error: 'error during destroying' });
+        res.sendStatus(204)
+    })
 
-    console.log(posts);
-
-    res.sendStatus(204)
 
 
 }
