@@ -9,7 +9,13 @@ function index(req, res) {
     })
 }
 function show(req, res) {
-    res.json(posts.find(post => post.slug === req.params.id))
+    const sql = 'SELECT * FROM posts WHERE id = ?'
+    const { id } = req.params;
+    connection.query(sql, [id], (err, results) => {
+        if (err) return res.status(500).json({ error: 'error durying showing' })
+        res.send(results[0])
+
+    })
 }
 function store(req, res) {
     const newId = 23876328
